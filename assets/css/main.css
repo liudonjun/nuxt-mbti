@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* @import 'tailwindcss/base'; */
+/* @import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
 
 /* 自定义样式 */
 .smooth-transition {
@@ -70,9 +70,12 @@
 }
 
 @keyframes shimmer {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.5;
   }
+
   50% {
     opacity: 1;
   }
@@ -94,11 +97,11 @@
   .text-responsive-xl {
     font-size: 1.5rem;
   }
-  
+
   .text-responsive-2xl {
     font-size: 1.875rem;
   }
-  
+
   .text-responsive-3xl {
     font-size: 2.25rem;
   }
@@ -124,9 +127,12 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: .5;
   }
@@ -184,6 +190,7 @@
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }

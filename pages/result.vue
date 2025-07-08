@@ -11,7 +11,7 @@
             <div class="text-xl mt-2 text-purple-100">{{ typeInfo.name }}</div>
           </div>
         </div>
-        
+
         <!-- 内容 -->
         <div class="p-8">
           <!-- 性格特征 -->
@@ -21,34 +21,36 @@
               <p class="text-gray-700 leading-relaxed">{{ typeInfo.description }}</p>
             </div>
           </div>
-          
+
           <!-- 维度分析 -->
           <div class="mb-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">维度分析</h2>
             <div class="space-y-6">
-              <div v-for="(dimension, index) in typeInfo.dimensions" :key="dimension.name" class="bg-gradient-to-r from-gray-50 to-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+              <div v-for="(dimension, index) in typeInfo.dimensions" :key="dimension.name"
+                class="bg-gradient-to-r from-gray-50 to-white rounded-2xl p-6 border border-gray-100 shadow-sm">
                 <div class="flex items-center justify-between mb-3">
                   <div class="flex items-center">
                     <div class="w-8 h-8 rounded-full mr-3 flex items-center justify-center text-white font-bold text-sm"
-                         :class="getDimensionColor(index)">
+                      :class="getDimensionColor(index)">
                       {{ dimension.name.charAt(0) }}
                     </div>
                     <span class="font-bold text-gray-800 text-lg">{{ dimension.name }}</span>
                   </div>
-                  <span class="text-sm font-semibold px-3 py-1 rounded-full"
-                        :class="getDimensionBadgeColor(index)">
+                  <span class="text-sm font-semibold px-3 py-1 rounded-full" :class="getDimensionBadgeColor(index)">
                     {{ dimension.type }}
                   </span>
                 </div>
-                
+
                 <!-- 进度条 -->
                 <div class="mb-3">
                   <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                     <div class="h-full rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
-                         :class="getDimensionProgressColor(index)"
-                         :style="{ width: getDimensionProgress(dimension.type) + '%' }">
+                      :class="getDimensionProgressColor(index)"
+                      :style="{ width: getDimensionProgress(dimension.type) + '%' }">
                       <!-- 光泽效果 -->
-                      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
+                      <div
+                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse">
+                      </div>
                     </div>
                   </div>
                   <div class="flex justify-between text-xs text-gray-500 mt-1">
@@ -57,12 +59,12 @@
                     <span>{{ getDimensionRight(index) }}</span>
                   </div>
                 </div>
-                
+
                 <p class="text-gray-600 leading-relaxed">{{ dimension.description }}</p>
               </div>
             </div>
           </div>
-          
+
           <!-- 职业建议 -->
           <div class="mb-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">适合的职业</h2>
@@ -72,30 +74,27 @@
               </div>
             </div>
           </div>
-          
+
           <!-- 底部按钮 -->
           <div class="flex flex-col space-y-4">
-            <button 
-              @click="retakeTest"
-              class="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-            >
+            <button @click="retakeTest"
+              class="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
               重新测试
             </button>
-            
-            <button 
-              @click="shareResult"
+
+            <button @click="shareResult"
               class="w-full bg-gray-100 text-gray-700 font-semibold py-4 px-8 rounded-2xl hover:bg-gray-200 transition-all duration-200"
-              :disabled="isGeneratingImage"
-            >
+              :disabled="isGeneratingImage">
               {{ isGeneratingImage ? '生成图片中...' : '分享结果' }}
             </button>
           </div>
         </div>
       </div>
     </div>
-    
+
     <!-- 分享弹窗 -->
-    <div v-if="showShareModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" @click="closeShareModal">
+    <div v-if="showShareModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      @click="closeShareModal">
       <div class="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-hidden" @click.stop>
         <div class="p-6">
           <div class="flex items-center justify-between mb-4">
@@ -106,44 +105,34 @@
               </svg>
             </button>
           </div>
-          
+
           <!-- 预览图片 -->
           <div v-if="shareImage" class="mb-6">
             <div class="bg-gray-100 rounded-2xl p-4 max-h-96 overflow-auto">
               <img :src="shareImage" alt="测试结果" class="w-full rounded-lg shadow-md">
             </div>
           </div>
-          
+
           <!-- 分享选项 -->
           <div class="space-y-3">
-            <button 
-              @click="saveToAlbum"
-              class="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-4 px-6 rounded-2xl hover:shadow-lg transition-all duration-200 flex items-center justify-center"
-            >
+            <button @click="saveToAlbum"
+              class="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-4 px-6 rounded-2xl hover:shadow-lg transition-all duration-200 flex items-center justify-center">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                </path>
               </svg>
               保存到相册
             </button>
-            
-            <button 
-              @click="shareToSocial"
-              class="w-full bg-green-500 text-white font-semibold py-4 px-6 rounded-2xl hover:bg-green-600 transition-all duration-200 flex items-center justify-center"
-            >
+
+            <button @click="shareToSocial"
+              class="w-full bg-green-500 text-white font-semibold py-4 px-6 rounded-2xl hover:bg-green-600 transition-all duration-200 flex items-center justify-center">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z">
+                </path>
               </svg>
               分享给朋友
-            </button>
-            
-            <button 
-              @click="copyImageToClipboard"
-              class="w-full bg-gray-100 text-gray-700 font-semibold py-4 px-6 rounded-2xl hover:bg-gray-200 transition-all duration-200 flex items-center justify-center"
-            >
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-              </svg>
-              复制图片
             </button>
           </div>
         </div>
@@ -343,7 +332,7 @@ const typeInfo = computed(() => {
       careers: ['机械师', '工程师', '程序员', '飞行员', '外科医生', '侦探', '运动员', '技术专家']
     }
   }
-  
+
   return types[personalityType.value] || types['ENFP']
 })
 
@@ -355,7 +344,7 @@ const retakeTest = () => {
 const getDimensionColor = (index) => {
   const colors = [
     'bg-gradient-to-r from-purple-500 to-purple-600',
-    'bg-gradient-to-r from-blue-500 to-blue-600', 
+    'bg-gradient-to-r from-blue-500 to-blue-600',
     'bg-gradient-to-r from-green-500 to-green-600',
     'bg-gradient-to-r from-orange-500 to-orange-600'
   ]
@@ -366,7 +355,7 @@ const getDimensionBadgeColor = (index) => {
   const colors = [
     'bg-purple-100 text-purple-800',
     'bg-blue-100 text-blue-800',
-    'bg-green-100 text-green-800', 
+    'bg-green-100 text-green-800',
     'bg-orange-100 text-orange-800'
   ]
   return colors[index % colors.length]
@@ -393,24 +382,31 @@ const getDimensionRight = (index) => {
 }
 
 const getDimensionProgress = (type) => {
-  // 根据性格类型计算每个维度的倾向程度
-  const typeStr = personalityType.value
-  const progressMap = {
-    '外向': typeStr.includes('E') ? 75 : 25,
-    '内向': typeStr.includes('I') ? 75 : 25,
-    '直觉': typeStr.includes('N') ? 75 : 25,
-    '感觉': typeStr.includes('S') ? 75 : 25,
-    '情感': typeStr.includes('F') ? 75 : 25,
-    '思考': typeStr.includes('T') ? 75 : 25,
-    '知觉': typeStr.includes('P') ? 75 : 25,
-    '判断': typeStr.includes('J') ? 75 : 25
-  }
-  return progressMap[type] || 50
+   // 根据实际测试结果计算维度倾向百分比
+   const typeStr = personalityType.value
+   const route = useRoute()
+   
+   // 从路由参数获取各维度得分
+   const scores = {
+     '外向': route.query.E || 0,
+     '内向': route.query.I || 0,
+     '直觉': route.query.N || 0,
+     '感觉': route.query.S || 0,
+     '情感': route.query.F || 0,
+     '思考': route.query.T || 0,
+     '知觉': route.query.P || 0,
+     '判断': route.query.J || 0
+   }
+   
+   // 计算百分比 (50%基础值 + 实际得分影响)
+   const baseValue = 50
+   const scoreImpact = (scores[type] || 0) * 0.5 // 调整系数使结果更合理
+   return Math.min(100, Math.max(0, baseValue + scoreImpact))
 }
 const shareResult = async () => {
   try {
     isGeneratingImage.value = true
-    
+
     // 生成截图
     const canvas = await html2canvas(resultContainer.value, {
       backgroundColor: '#f8fafc',
@@ -420,11 +416,11 @@ const shareResult = async () => {
       height: resultContainer.value.scrollHeight,
       width: resultContainer.value.scrollWidth
     })
-    
+
     // 转换为图片
     shareImage.value = canvas.toDataURL('image/png', 0.9)
     showShareModal.value = true
-    
+
   } catch (error) {
     console.error('生成截图失败:', error)
     // 降级到文本分享
@@ -459,7 +455,7 @@ const saveToAlbum = () => {
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
-    
+
     // 显示成功提示
     showToast('图片已保存到下载文件夹')
   }
@@ -472,7 +468,7 @@ const shareToSocial = async () => {
       const response = await fetch(shareImage.value)
       const blob = await response.blob()
       const file = new File([blob], `MBTI测试结果-${personalityType.value}.png`, { type: 'image/png' })
-      
+
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           title: 'MBTI 测试结果',
@@ -504,7 +500,7 @@ const copyImageToClipboard = async () => {
       // 将base64转换为blob
       const response = await fetch(shareImage.value)
       const blob = await response.blob()
-      
+
       if (navigator.clipboard && navigator.clipboard.write) {
         await navigator.clipboard.write([
           new ClipboardItem({
@@ -528,7 +524,7 @@ const showToast = (message) => {
   toast.textContent = message
   toast.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg z-50 transition-all duration-300'
   document.body.appendChild(toast)
-  
+
   setTimeout(() => {
     toast.style.opacity = '0'
     setTimeout(() => {
