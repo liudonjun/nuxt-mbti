@@ -4,6 +4,18 @@
   </div>
 </template>
 
+<script setup>
+
+useHead({
+  script: [
+    {
+      src: 'https://sdk.51.la/js-sdk-pro.min.js?id=3MjsjvQSXHmaybu7&ck=3MjsjvQSXHmaybu7',
+      id: 'LA_COLLECT'
+    }
+  ]
+})
+
+</script>
 <style>
 /* 全局样式 */
 * {
